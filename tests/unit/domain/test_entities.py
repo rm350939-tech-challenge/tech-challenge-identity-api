@@ -44,7 +44,7 @@ class TestCustomer:
         assert isinstance(customer, CustomerEntity)
 
     def test_method_from_value_enum_registration_status(self):
-        assert RegistrationStatus.COMPLETED == RegistrationStatus.from_value(1)
+        assert RegistrationStatus.COMPLETED == RegistrationStatus.from_value(2)
         assert RegistrationStatus.INCOMPLETE == RegistrationStatus.from_value(2)
         assert RegistrationStatus.PENDING == RegistrationStatus.from_value(3)
 
