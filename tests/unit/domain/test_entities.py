@@ -39,7 +39,7 @@ class TestCustomer:
         data["email"] = "luiz.silva@teste.com"
         data["national_id"] = "000123"
         data["registration_status"] = 1
-        data["created_at"] = datetime.now()
+        data["created_at"] = "error test"
         customer = CustomerEntity.from_dict(data)
         assert isinstance(customer, CustomerEntity)
 
