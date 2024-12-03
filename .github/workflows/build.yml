@@ -54,6 +54,12 @@ jobs:
       - name: Run tox
         run: tox -e py
 
+      - name: Cat coverage.xml
+        run: cat coverage.xml
+
+      - name: PWD coverage.xml
+        run: pwd
+
       - name: SonarQube Cloud Scan
         uses: SonarSource/sonarcloud-github-action@master
         env:
