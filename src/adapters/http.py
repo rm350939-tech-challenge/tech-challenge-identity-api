@@ -153,7 +153,7 @@ def list_customer():
             OutputCustomerDTO.from_domain(customer=customer).to_dict()
             for customer in customers
         ]
-        return jsonify(output), HTTPStatus.CREATED
+        return jsonify(output), HTTPStatus.OK
     except EntityNotFoundException as err:
         return jsonify({"error": err.message}), HTTPStatus.NOT_FOUND
     except Exception as err:

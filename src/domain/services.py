@@ -27,12 +27,12 @@ class CustomerService:
         return CustomerEntity.from_dict(result)
 
     def list_all_customers(self) -> List[CustomerEntity]:
-        categories = self._customer_repository.list()
+        customers = self._customer_repository.list()
 
-        if not categories:
+        if not customers:
             raise EntityNotFoundException("There are no registered customers.")
 
-        return categories
+        return customers
 
     def register_customer(self, **data) -> CustomerEntity:
         email = Email(data.get("email"))
