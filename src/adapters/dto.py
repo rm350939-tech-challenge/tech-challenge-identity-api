@@ -5,7 +5,7 @@ from domain.entities import CustomerEntity
 
 
 class OutputCustomerDTO(BaseModel):
-    id: int
+    id: str
     name: str
     email: str
     national_id: str

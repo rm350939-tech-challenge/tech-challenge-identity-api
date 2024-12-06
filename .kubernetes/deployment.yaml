@@ -1,0 +1,52 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: tech-challenge-identity-api
+  labels:
+    app: tech-challenge-identity-api
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: tech-challenge-identity-api
+  template:
+    metadata:
+      labels:
+        app: tech-challenge-identity-api
+    spec:
+      containers:
+        - name: tech-challenge-identity-api
+          image: 127528343474.dkr.ecr.us-east-1.amazonaws.com/tech-challenge-identity-api
+          ports:
+            - containerPort: 5003
+          envFrom:
+            - configMapRef:
+                name: tech-challenge-identity-api
+          resources:
+            requests:
+              memory: "128Mi"
+              cpu: "250m"
+            limits:
+              memory: "256Mi"
+              cpu: "500m"
+          env:
+            - name: DATABASE_MONGO_USER
+              valueFrom:
+                secretKeyRef:
+                  name: DatabaseCredential-identity-service
+                  key: username
+            - name: DATABASE_MONGO_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: DatabaseCredential-identity-service
+                  key: password
+            - name: DATABASE_MONGO_HOST
+              valueFrom:
+                secretKeyRef:
+                  name: DatabaseCredential-identity-service
+                  key: host
+            - name: DATABASE_MONGO_DATABASE
+              valueFrom:
+                secretKeyRef:
+                  name: DatabaseCredential-identity-service
+                  key: database

@@ -18,7 +18,7 @@ class RegistrationStatus(Enum):
 
 @dataclass
 class CustomerEntity:
-    id: int = field(default=None, repr=False, kw_only=True)
+    id: str = field(default=None, repr=False, kw_only=True)
     name: str
     email: Email
     national_id: NationalID

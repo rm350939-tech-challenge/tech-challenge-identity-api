@@ -10,6 +10,6 @@ COPY src .
 
 ENV PYTHONPATH=/
 
-EXPOSE 5000
+EXPOSE 5003
 
 CMD ["python", "main.py"]

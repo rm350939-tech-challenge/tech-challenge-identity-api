@@ -2,6 +2,7 @@ from http import HTTPStatus
 from flask import Blueprint, request, jsonify
 from flasgger import swag_from
 
+from adapters.mongodb import CustomerMongodbRepository
 from adapters.orm import CustomerRepository
 
 from domain.exceptions import (
@@ -14,7 +15,7 @@ from adapters.dto import OutputCustomerDTO
 
 from domain.services import CustomerService
 
-service = CustomerService(customer_repository=CustomerRepository())
+service = CustomerService(customer_repository=CustomerMongodbRepository())
 
 customer_api = Blueprint("customer_api", __name__)
 
@@ -211,9 +212,8 @@ def list_customer():
 )
 def get_customer_identify(national_id: str):
     try:
-        customer = service.identify_customer_by_national_id(national_id=national_id)
-        output = OutputCustomerDTO.from_domain(customer=customer).to_dict()
-        return jsonify(output), HTTPStatus.OK
+        output = service.identify_customer_by_national_id(national_id=national_id)
+        return jsonify({"token": output}), HTTPStatus.OK
     except CustomerNotFoundException as err:
         return jsonify({"error": err.message}), HTTPStatus.NOT_FOUND
     except CustomerAlreadyExistsException as err:
