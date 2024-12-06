@@ -14,6 +14,7 @@ spec:
       labels:
         app: tech-challenge-identity-api
     spec:
+      serviceAccountName: tech-challenge-identity-api
       containers:
         - name: tech-challenge-identity-api
           image: 127528343474.dkr.ecr.us-east-1.amazonaws.com/tech-challenge-identity-api
