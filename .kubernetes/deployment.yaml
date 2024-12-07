@@ -14,15 +14,11 @@ spec:
       labels:
         app: tech-challenge-identity-api
     spec:
-      serviceAccountName: tech-challenge-identity-api
       containers:
         - name: tech-challenge-identity-api
-          image: 127528343474.dkr.ecr.us-east-1.amazonaws.com/tech-challenge-identity-api
+          image: jhonataneduardo/new-test-identity
           ports:
             - containerPort: 5003
-          envFrom:
-            - configMapRef:
-                name: tech-challenge-identity-api
           resources:
             requests:
               memory: "128Mi"
@@ -34,20 +30,25 @@ spec:
             - name: DATABASE_MONGO_USER
               valueFrom:
                 secretKeyRef:
-                  name: DatabaseCredential-identity-service
+                  name: secret-database-credentials
                   key: username
             - name: DATABASE_MONGO_PASSWORD
               valueFrom:
                 secretKeyRef:
-                  name: DatabaseCredential-identity-service
+                  name: secret-database-credentials
                   key: password
             - name: DATABASE_MONGO_HOST
               valueFrom:
                 secretKeyRef:
-                  name: DatabaseCredential-identity-service
+                  name: secret-database-credentials
                   key: host
             - name: DATABASE_MONGO_DATABASE
               valueFrom:
                 secretKeyRef:
-                  name: DatabaseCredential-identity-service
+                  name: secret-database-credentials
                   key: database
+            - name: JWT_SECRET_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: secret-database-credentials
+                  key: jwt_secret_key

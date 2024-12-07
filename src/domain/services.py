@@ -25,11 +25,11 @@ class CustomerService:
 
         if not result:
             raise CustomerNotFoundException()
-        
+
         customer = CustomerEntity.from_dict(result)
-        
+
         payload = {
-            'customer_id': customer.id,
+            "customer_id": customer.id,
         }
 
         return jwt.encode(payload, os.environ.get("JWT_SECRET_KEY"))

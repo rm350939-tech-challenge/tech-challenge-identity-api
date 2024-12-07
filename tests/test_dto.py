@@ -6,7 +6,7 @@ from adapters.dto import OutputCustomerDTO
 
 def test_from_domain():
     customer_entity = CustomerEntity(
-        id=1,
+        id="12345",
         name="John Doe",
         email=Email("john.doe@example.com"),
         national_id=NationalID("123456789"),
@@ -17,7 +17,7 @@ def test_from_domain():
 
     dto = OutputCustomerDTO.from_domain(customer_entity)
 
-    assert dto.id == 1
+    assert dto.id == "12345"
     assert dto.name == "John Doe"
     assert dto.email == "john.doe@example.com"
     assert dto.national_id == "123456789"
@@ -28,7 +28,7 @@ def test_from_domain():
 
 def test_from_domain_with_updated_at():
     customer_entity = CustomerEntity(
-        id=2,
+        id="123455",
         name="Jane Doe",
         email=Email("jane.doe@example.com"),
         national_id=NationalID("987654321"),
@@ -39,7 +39,7 @@ def test_from_domain_with_updated_at():
 
     dto = OutputCustomerDTO.from_domain(customer_entity)
 
-    assert dto.id == 2
+    assert dto.id == "123455"
     assert dto.name == "Jane Doe"
     assert dto.email == "jane.doe@example.com"
     assert dto.national_id == "987654321"
@@ -50,7 +50,7 @@ def test_from_domain_with_updated_at():
 
 def test_to_dict():
     dto = OutputCustomerDTO(
-        id=1,
+        id="12345",
         name="John Doe",
         email="john.doe@example.com",
         national_id="123456789",
@@ -62,7 +62,7 @@ def test_to_dict():
     dto_dict = dto.to_dict()
 
     assert isinstance(dto_dict, dict)
-    assert dto_dict["id"] == 1
+    assert dto_dict["id"] == "12345"
     assert dto_dict["name"] == "John Doe"
     assert dto_dict["email"] == "john.doe@example.com"
     assert dto_dict["national_id"] == "123456789"

@@ -3,7 +3,6 @@ from flask import Blueprint, request, jsonify
 from flasgger import swag_from
 
 from adapters.mongodb import CustomerMongodbRepository
-from adapters.orm import CustomerRepository
 
 from domain.exceptions import (
     CustomerAlreadyExistsException,
