@@ -1,4 +1,6 @@
-from typing import Dict, List, Optional
+import os
+import jwt
+from typing import List
 
 from domain.entities import CustomerEntity, RegistrationStatus
 from domain.exceptions import (
@@ -16,7 +18,7 @@ class CustomerService:
     def __init__(self, customer_repository: CustomerRepositoryInterface):
         self._customer_repository = customer_repository
 
-    def identify_customer_by_national_id(self, national_id: str) -> CustomerEntity:
+    def identify_customer_by_national_id(self, national_id: str) -> str:
         result = self._customer_repository.find_customer_by_national_id(
             national_id=NationalID(national_id).value
         )
@@ -24,7 +26,13 @@ class CustomerService:
         if not result:
             raise CustomerNotFoundException()
 
-        return CustomerEntity.from_dict(result)
+        customer = CustomerEntity.from_dict(result)
+
+        payload = {
+            "customer_id": customer.id,
+        }
+
+        return jwt.encode(payload, os.environ.get("JWT_SECRET_KEY"))
 
     def list_all_customers(self) -> List[CustomerEntity]:
         customers = self._customer_repository.list()

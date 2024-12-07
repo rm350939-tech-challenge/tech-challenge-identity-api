@@ -1,0 +1,54 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: tech-challenge-identity-api
+  labels:
+    app: tech-challenge-identity-api
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: tech-challenge-identity-api
+  template:
+    metadata:
+      labels:
+        app: tech-challenge-identity-api
+    spec:
+      containers:
+        - name: tech-challenge-identity-api
+          image: jhonataneduardo/new-test-identity
+          ports:
+            - containerPort: 5003
+          resources:
+            requests:
+              memory: "128Mi"
+              cpu: "250m"
+            limits:
+              memory: "256Mi"
+              cpu: "500m"
+          env:
+            - name: DATABASE_MONGO_USER
+              valueFrom:
+                secretKeyRef:
+                  name: secret-database-credentials
+                  key: username
+            - name: DATABASE_MONGO_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: secret-database-credentials
+                  key: password
+            - name: DATABASE_MONGO_HOST
+              valueFrom:
+                secretKeyRef:
+                  name: secret-database-credentials
+                  key: host
+            - name: DATABASE_MONGO_DATABASE
+              valueFrom:
+                secretKeyRef:
+                  name: secret-database-credentials
+                  key: database
+            - name: JWT_SECRET_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: secret-database-credentials
+                  key: jwt_secret_key

@@ -16,7 +16,7 @@ def test_identify_customer_by_national_id():
 
     national_id_value = "123456789"
     mock_customer_data = {
-        "id": 1,
+        "id": "1234",
         "name": "John Doe",
         "email": "john.doe@example.com",
         "national_id": national_id_value,
@@ -25,11 +25,7 @@ def test_identify_customer_by_national_id():
     mock_repository.find_customer_by_national_id.return_value = mock_customer_data
 
     result = customer_service.identify_customer_by_national_id(national_id_value)
-
-    assert isinstance(result, CustomerEntity)
-    assert result.id == 1
-    assert result.name == "John Doe"
-    assert result.national_id.value == national_id_value
+    assert isinstance(result, str)
     mock_repository.find_customer_by_national_id.assert_called_once_with(
         national_id=national_id_value
     )

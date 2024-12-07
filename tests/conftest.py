@@ -1,16 +1,15 @@
 import pytest
 from flask import Flask
 from unittest.mock import MagicMock
-from adapters.http import customer_api
-from adapters.orm import CustomerModel
 
 
 @pytest.fixture
-def app():
-    app = Flask(__name__)
-    app.register_blueprint(customer_api, url_prefix="/api/v1")
-    app.config["TESTING"] = True
-    return app
+def mock_env_vars(monkeypatch):
+    """Mock das variáveis de ambiente para conexão com o MongoDB."""
+    monkeypatch.setenv("DATABASE_MONGO_USER", "test_user")
+    monkeypatch.setenv("DATABASE_MONGO_PASSWORD", "test_password")
+    monkeypatch.setenv("DATABASE_MONGO_HOST", "test_host")
+    monkeypatch.setenv("DATABASE_MONGO_DATABASE", "test_database")
 
 
 @pytest.fixture
