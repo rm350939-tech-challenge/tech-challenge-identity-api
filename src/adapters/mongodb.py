@@ -8,15 +8,18 @@ from pymongo.server_api import ServerApi
 from domain.entities import CustomerEntity
 from ports.repositories import CustomerRepositoryInterface
 
-username = os.environ.get("DATABASE_MONGO_USER")
-password = os.environ.get("DATABASE_MONGO_PASSWORD")
-host = os.environ.get("DATABASE_MONGO_HOST")
-database = os.environ.get("DATABASE_MONGO_DATABASE")
 
-uri = f"mongodb+srv://{username}:{password}@{host}/{database}"
+def get_mongo_client():
+    username = os.environ.get("DATABASE_MONGO_USER")
+    password = os.environ.get("DATABASE_MONGO_PASSWORD")
+    host = os.environ.get("DATABASE_MONGO_HOST")
+    database = os.environ.get("DATABASE_MONGO_DATABASE")
 
-client = MongoClient(uri, server_api=ServerApi("1"))
+    uri = f"mongodb+srv://{username}:{password}@{host}/{database}"
+    return MongoClient(uri, server_api=ServerApi("1"))
 
+
+client = get_mongo_client()
 db = client.get_database()
 collection = db["customers"]
 

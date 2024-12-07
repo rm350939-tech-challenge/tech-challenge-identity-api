@@ -1,5 +1,5 @@
 import pytest
-from unittest.mock import MagicMock
+from unittest.mock import MagicMock, patch
 from pymongo.collection import Collection
 from bson import ObjectId
 from domain.entities import CustomerEntity, RegistrationStatus
