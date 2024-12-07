@@ -66,7 +66,3 @@ class CustomerMongodbRepository(CustomerRepositoryInterface):
 
     def get_by_id(self, customer_id: int) -> CustomerEntity | None:
         pass
-        # customer = CustomerModel.get_or_none(id=customer_id)
-        # if not customer:
-        #     return None
-        # return CustomerEntity(**customer.model_to_dict())

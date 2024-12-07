@@ -2,7 +2,6 @@ import pytest
 from flask import Flask
 from unittest.mock import MagicMock
 from adapters.http import customer_api
-from adapters.orm import CustomerModel
 
 
 @pytest.fixture
